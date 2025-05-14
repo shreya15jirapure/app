@@ -1,0 +1,30 @@
+
+
+ pipeline {
+    agent { label 'k3s' }
+
+stages {
+    stage('copy code to jenkins workspace') {
+            steps {
+                script {
+                    sh ''' 
+                       cp -r /home/ubuntu/Final_App/* .
+                    '''
+                }
+            }
+        }
+        stage('Compilation') {
+            steps {
+                script {
+                    sh ''' 
+                        # Starting compilation
+                        rm -rf build
+                        cd Final_App
+                        ./build_and_sync.sh no
+                        ./startup.sh no
+                    '''
+                }
+            }
+        }
+}
+ }

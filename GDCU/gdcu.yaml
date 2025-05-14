@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client-container
+        image: your-client-image:latest
+        env:
+        - name: SERVER_HOST
+          value: "server-service.default.svc.cluster.local"
+        - name: GDCU_PORT
+          value: "8080"
+

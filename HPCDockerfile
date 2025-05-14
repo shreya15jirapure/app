@@ -1,0 +1,28 @@
+# Use a glibc-based base image
+FROM ubuntu:22.04
+
+# Set environment variables
+ENV APP_DIR=/app
+
+# Create application directory
+WORKDIR ${APP_DIR}
+
+# Copy GDCU binary from the host system
+COPY ./build/bin/stripped/HPC_CLIENT_APP ${APP_DIR}/HPC_CLIENT_APP
+
+# Copy shared libraries
+COPY ./build/HPC_libs/lib/x86_64-linux-gnu /app/libs
+
+# Add your libs directory to the search path
+ENV LD_LIBRARY_PATH=/app/libs:$LD_LIBRARY_PATH  
+
+# RUN apk add --no-cache libc6-compat
+
+# Make binary executable
+RUN chmod +x ${APP_DIR}/HPC_CLIENT_APP
+
+# Expose GDCU server port (modify as needed)
+EXPOSE 8080
+
+# Run the GDCU server binary by default
+CMD ["./HPC_CLIENT_APP"]

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hpc-client-app-deployment
+  labels:
+    app: hpc-client-app
+spec:
+  replicas: 1  # Number of replicas, adjust if you need to scale
+  selector:
+    matchLabels:
+      app: hpc-client-app
+  template:
+    metadata:
+      labels:
+        app: hpc-client-app
+    spec:
+      containers:
+        - name: hpc-client-app-container
+          image: localhost:5000/hpcimage
+          ports:
+            - containerPort: 8080
+

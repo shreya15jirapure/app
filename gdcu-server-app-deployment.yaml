@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gdcu-server-app-deployment
+  labels:
+    app: gdcu-server-app
+spec:
+  replicas: 1  # Number of replicas, adjust if you need to scale
+  selector:
+    matchLabels:
+      app: gdcu-server-app
+  template:
+    metadata:
+      labels:
+        app: gdcu-server-app
+    spec:
+      containers:
+        - name: gdcu-server-app-container
+          image: localhost:5000/gdcuimage
+          ports:
+            - containerPort: 8080
