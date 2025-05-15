@@ -38,10 +38,22 @@ stages {
                     dir('helm-charts') {
                         checkout([
                             $class: 'GitSCM',
-                            branches: [[name: '*/${BRANCH_NAME}']],  // You can specify the branch you want
+                            branches: [[name: "*/${env.BRANCH_NAME}"]],  // You can specify the branch you want
                             userRemoteConfigs: [[url: 'https://github.com/shreya15jirapure/k3s.git']]
                         ])
                     }
+                }
+            }
+        }
+      stage('Deploy Helm Charts') {
+            steps {
+                dir('helm-charts/k3s') {
+                    sh '''
+                        helm upgrade --install my-release . \
+                          --set server.tag=${BUILD_NUMBER} \
+                          --set client.tag=${BUILD_NUMBER}
+
+                    '''
                 }
             }
         }
