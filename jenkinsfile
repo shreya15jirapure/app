@@ -49,6 +49,7 @@ stages {
             steps {
                 dir('helm-charts/k3s') {
                     sh '''
+                        whoami
                         helm upgrade --install my-release . \
                           --set server.tag=${BUILD_NUMBER} \
                           --set client.tag=${BUILD_NUMBER}
