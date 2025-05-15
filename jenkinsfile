@@ -47,7 +47,7 @@ stages {
         }
       stage('Deploy Helm Charts') {
             steps {
-                dir('helm-charts/k3s') {
+                dir('helm-charts/') {
                     withEnv(["KUBECONFIG=/etc/rancher/k3s/k3s.yaml"]) {
                         sh '''
                             helm upgrade --install my-release . \
