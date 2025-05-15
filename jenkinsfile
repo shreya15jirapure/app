@@ -48,15 +48,15 @@ stages {
       stage('Deploy Helm Charts') {
             steps {
                 dir('helm-charts/k3s') {
-                    sh '''
-                        whoami
-                        helm upgrade --install my-release . \
-                          --set server.tag=${BUILD_NUMBER} \
-                          --set client.tag=${BUILD_NUMBER}
-
-                    '''
-                }
+                    withEnv(["KUBECONFIG=/etc/rancher/k3s/k3s.yaml"]) {
+                        sh '''
+                            helm upgrade --install my-release . \
+                              --set server.tag=${BUILD_NUMBER} \
+                              --set client.tag=${BUILD_NUMBER}
+                        '''
+                    }
             }
         }
+      }
 }
 }
