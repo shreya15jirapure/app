@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Set variables
+# Set variables as below mentioned
 BUILD_DIR="./build"
 CROSS_BUILD_DIR="./build_cross_compile"
 BIN_DIR="./build/bin"
