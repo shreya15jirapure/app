@@ -2,6 +2,9 @@
 
  pipeline {
     agent { label 'k3s' }
+environment {
+       BUILD_NUMBER = ${BUILD_NUMBER}
+    }
 
 stages {
         stage('Compilation') {
@@ -15,5 +18,18 @@ stages {
                 }
             }
         }
+      stage('Build images') { 
+            steps{
+                   sh '''
+                      podman build -f HPCDockerfile -t hpcimage:${BUILD_NUMBER}
+                      podman build -f GDCUDockerfile -t gdcuimage:${BUILD_NUMBER}
+                      podman tag hpcimage:${BUILD_NUMBER} localhost:5000/hpcimage:${BUILD_NUMBER}
+                      podman tag gdcuimage:${BUILD_NUMBER} localhost:5000/gdcuimage:${BUILD_NUMBER}
+                      podman push localhost:5000/hpcimage:${BUILD_NUMBER}
+                      podman push localhost:5000/gdcuimage:${BUILD_NUMBER}
+                                        
+                   '''
+            }
+                          }
 }
 }
