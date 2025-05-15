@@ -24,6 +24,9 @@ stages {
                       podman tag gdcuimage:${BUILD_NUMBER} localhost:5000/gdcuimage:${BUILD_NUMBER}
                       podman push localhost:5000/hpcimage:${BUILD_NUMBER}
                       podman push localhost:5000/gdcuimage:${BUILD_NUMBER}
+                      podman images
+                      podman rmi hpcimage:${BUILD_NUMBER}
+                      podman rmi gdcuimage:${BUILD_NUMBER}
                                         
                    '''
             }
