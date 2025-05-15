@@ -2,9 +2,6 @@
 
  pipeline {
     agent { label 'k3s' }
-environment {
-       BUILD_NUMBER = "${BUILD_NUMBER}"
-    }
 
 stages {
         stage('Compilation') {
