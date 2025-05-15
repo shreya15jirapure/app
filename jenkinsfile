@@ -31,5 +31,19 @@ stages {
                    '''
             }
                           }
+      stage('Checkout Helm Charts') {
+            steps {
+                script {
+                    // Checkout the Helm charts repository into a sub-directory (optional)
+                    dir('helm-charts') {
+                        checkout([
+                            $class: 'GitSCM',
+                            branches: [[name: '*/${BRANCH_NAME}']],  // You can specify the branch you want
+                            userRemoteConfigs: [[url: 'https://github.com/shreya15jirapure/k3s.git']]
+                        ])
+                    }
+                }
+            }
+        }
 }
 }
