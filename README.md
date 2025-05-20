@@ -1,4 +1,4 @@
-# HPC and GDCU Communication System
+# HPC and GDCU Communication System p
 
 This project implements communication between a High-Performance Computing (HPC) server and a General Data Collection Unit (GDCU) client. The server listens for connections from the GDCU client and handles signals related to Single Pedal Drive (SPD). The GDCU client sends SPD-related signals to the HPC server and receives responses.
 
